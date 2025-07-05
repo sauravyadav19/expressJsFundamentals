@@ -1,0 +1,44 @@
+# .gitignore for a root directory containing multiple Node.js/Express.js projects
+
+# Dependencies
+# Ignore node_modules directories in any subfolder
+node_modules/
+
+# Environment Variables
+# Ignore .env files in any subfolder to protect sensitive keys
+.env
+.env.*
+!/.env.example
+
+# Logs
+# Ignore log files, which are for local debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Build & Output directories
+# Ignore compiled/transpiled code folders in any subproject
+build/
+dist/
+public/
+
+# IDE & Editor specific files
+# Ignore local editor configurations
+.vscode/
+.idea/
+
+# System files
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Runtime Data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage reports
+coverage/
+.nyc_output/

@@ -44,12 +44,8 @@ app.get('/',(incomingRequest,outgoingResponse)=>{
 
 
 
-// app.use() runs everytime there is an incoming request detected and we have not specfifed the path and, 
-// what to do with that request, this run no matter the type meaning it could GET,POST or any other kind.
-// its express way of making sure that every request is handled gracefully even if developer has not 
-// specfifed a path. (you can use it to send 404)
-// it too gets that requst and repsonse objects.
+// app.use() is a middleware (is yet to understand)
 app.use((request,respone)=>{
     console.log("Incoming request detected");
-    respone.send("<h1> 404 not Found </h1>");
 })
+

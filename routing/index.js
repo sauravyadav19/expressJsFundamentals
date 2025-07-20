@@ -34,6 +34,47 @@ app.get('/aboutus',(request,response)=>{
     response.send("This is the about us page")
 })
 
+// there are times (which is most of the time) when we the hard-coded path is not enough,
+// for example there are 100 and 1000 of pages and in a website and it is simply not 
+// possible to define route handler for each and every single of those pages, to overcome this
+// we use something called pattern matching route handlers
+// to create a pattern matching variable we use the : followed by the name of the variable
+// in the below example that variable is username
+// so any incoming request to domainName/user/________
+// that blank space is what our variable 'username' holds
+// this all will be a match for this route handler
+  // westores.com/user/jon
+  // westores.com/user/dancerys
+  // westores.com/user/cersei
+  // westores.com/user/jamine
+// but not these
+  // westores.com/user/jon/ghost [as it only matching /user/:username ... this is differnt pattern /user/:username/:anotherVariable]
+  // westores.com/user/ [this is also not a match as it a differnt route]
+
+//Express send whats the value that is being hold in that incoming request into an Javascript object called
+// "params" and that object has a key same as the name of the variable which can be used to access that.
+
+app.get('/user/:username',(request,response)=>{
+  const username = request.params.username;
+  response.send(`Welcome ${username}`);
+})
+
+// another example of the dynamic paths
+app.get('/starks/:name/direwolf/:pet',(request,response)=>{
+  const {name,pet} = request.params // destructring
+  response.send(`Character: ${name}, Direwolf: ${pet}`);
+})
+// what path WILL match
+  // westores.com/starks/jon/direwolf/ghost
+  // westores.com/starks/rob/direwolf/greyghost
+  // westores.com/starks/124qe/direwolf/57843 [this is a valid match to our pattern as we are not checking for whats being stored in our variables]
+// what path WILL NOT match 
+ // westores.com/jon/ghost [we require to stick to the pattern 'starks' and 'direwolf' is missing]
+ // westores.com/starks/jon [incomplet path and hence is considered as differnt path]
+ // westores.com/starks/jon/direwolf/ [incomplete path]
+ // westores.com/starks/jon/direwolf/ghost/food [extra stuff with the variable and hence a different path]
+
+
 // there are times when none of our defined handler gets a match.. but we still want to handle the
 // incoming request very gracefully, so for that we have something called a fallback handler
 // we use the wildcard (*) , this is a way of identifing using regular express (/^.*$/) match all path.

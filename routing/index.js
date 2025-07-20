@@ -27,12 +27,38 @@ const port = 8545;
 //
 app.get('/home',(request,response)=>{
 
-    respond.send("Hello There this is Home Page")
+    response.send("Hello There this is Home Page")
     
 })
-app.get('/aboutus',(request,respone)=>{
+app.get('/aboutus',(request,response)=>{
     response.send("This is the about us page")
 })
+
+// there are times when none of our defined handler gets a match.. but we still want to handle the
+// incoming request very gracefully, so for that we have something called a fallback handler
+// we use the wildcard (*) , this is a way of identifing using regular express (/^.*$/) match all path.
+// earlier is just use to be app.get('*', handler) but to make it future proof express switched to 
+// more regular-expression--ish
+
+// this will handle all the un-matched GET request, we can define a route handler for other verbs POST,DELETE
+
+app.get(/^.*$/, (req, res) => {
+  res.send("This is wildcard handler route");
+});
+
+// also remember that ORDER OF HANDLER DO MATTERS.
+// so if our fallback function were to be the first route handler, even if we have a sepcific route handler
+// for a path, that will not match rather all the incoming request will match the wildcard and hence 
+// will be resolved as such. 
+// so  this is our order: 
+  // app.get(/^.*$/, handler) [fallback handler]
+  // app.get('/home', handler)
+  // app.get('/aboutUs', handler)
+// even though we have path for home and aboutUs sepcfied they will not be matched and fallback handler 
+// will always win and hence resolving all the incoming request
+// to avoid this but also getting the benfit of the handling all the incoming request gracefully, we
+// place the fallback at the end.
+
 
 // Starting the server and listening for incomming request
 app.listen(port,()=>{

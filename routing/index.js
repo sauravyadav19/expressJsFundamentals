@@ -34,6 +34,8 @@ app.get('/aboutus',(request,response)=>{
     response.send("This is the about us page")
 })
 
+// -------------------------------------------------------------------------------------------------------------------
+
 // there are times (which is most of the time) when we the hard-coded path is not enough,
 // for example there are 100 and 1000 of pages and in a website and it is simply not 
 // possible to define route handler for each and every single of those pages, to overcome this
@@ -73,7 +75,8 @@ app.get('/starks/:name/direwolf/:pet',(request,response)=>{
  // westores.com/starks/jon [incomplet path and hence is considered as differnt path]
  // westores.com/starks/jon/direwolf/ [incomplete path]
  // westores.com/starks/jon/direwolf/ghost/food [extra stuff with the variable and hence a different path]
-
+ 
+// -------------------------------------------------------------------------------------------------------------------
 
 // there are times when none of our defined handler gets a match.. but we still want to handle the
 // incoming request very gracefully, so for that we have something called a fallback handler

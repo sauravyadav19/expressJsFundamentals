@@ -75,7 +75,33 @@ app.get('/starks/:name/direwolf/:pet',(request,response)=>{
  // westores.com/starks/jon [incomplet path and hence is considered as differnt path]
  // westores.com/starks/jon/direwolf/ [incomplete path]
  // westores.com/starks/jon/direwolf/ghost/food [extra stuff with the variable and hence a different path]
- 
+
+// -------------------------------------------------------------------------------------------------------------------
+//HANDLING QUERY STRING
+// Refresher: A query string is a way to pass small bits of data from the client (browser, frontend app, Postman, etc.) 
+//            to the server, attached to the end of a URL, after a ?.
+// use case: when we google something the url look like something 
+//          https://www.google.com/search?q=westroes
+// it consists of the a query strign which is followed by ? and it tells the server that what follows is data
+// that is being passed by user, in this case the variable is 'q' which has the value of "westores"
+// differnt websites have differnt name for this variable, but what is common is that any query string is followed by a ?
+// Contains one or more key=value pairs, Pairs are separated by & (in case you have multiple query values).
+// Express provides us with a Javascript object after parsing the incomming request, it can be accessed using request.query
+// Also we need not to create a router handler with exact route handler's path, what i mean i by that is 
+// say, westores.com/search?q=someValueWeAreLookingFor (NO)
+// but rather we can simply define a route handler for westores.com/search and when the client sends a query key-value
+// pair, the incoming request object populate the query property
+
+//Example
+app.get('/search',(request,response)=>{
+  const query = request.query;
+  response.send(`Result for Character ${query.character}`);//assuming that there is a key-value pair with key being "character"
+})
+
+// we can combine the dynamic route handling and query string feature
+// westores.com/character/:name
+// and they we can request something like this westores.com/character/cersei?pet=ifAny
+
 // -------------------------------------------------------------------------------------------------------------------
 
 // there are times when none of our defined handler gets a match.. but we still want to handle the

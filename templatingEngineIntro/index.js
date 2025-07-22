@@ -14,6 +14,15 @@ app.set('view engine','ejs')
 // we can set it to a differnt path, if we want to using app.set('views','pathOfTheFolder');
 //--------------------------------------------------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------------------------------------------------
+// RENDERING YOUR FILE USING TEMPLATING ENGINE
+
+// route handler for the path 'domain/homePage'
+app.get('/homePage',(request,response)=>{
+    response.render('PathToTheFile');
+})
+//--------------------------------------------------------------------------------------------------------------------------
+
 //Handler when there is an incoming request on the port
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);

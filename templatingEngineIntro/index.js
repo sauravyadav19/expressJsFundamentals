@@ -20,6 +20,11 @@ app.set('view engine','ejs')
 // route handler for the path 'domain/homePage'
 app.get('/homePage',(request,response)=>{
     response.render('PathToTheFile');
+    //we are now using response.render rather than response.send() as the file we are sending need to be render first 
+    // then only will be sent the client,so rendering is happening at server side rather than client side.
+    // the Path need not to mention /view/NameOfTheFile since express assuems that it will be in views, we can simply
+    // just write the name of the file, also we do not have to add the .ejs extension because the rending engine already
+    // been set to 'ejs' so express knows that it is a .ejs file but its a good practice and gives more clarity if we add the extension
 })
 //--------------------------------------------------------------------------------------------------------------------------
 

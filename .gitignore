@@ -1,4 +1,4 @@
-# .gitignore for a root directory containing multiple Node.js/Express.js projects
+	# .gitignore for a root directory containing multiple Node.js/Express.js projects
 
 # Dependencies
 # Ignore node_modules directories in any subfolder
@@ -21,7 +21,6 @@ yarn-debug.log*
 # Ignore compiled/transpiled code folders in any subproject
 build/
 dist/
-public/
 
 # IDE & Editor specific files
 # Ignore local editor configurations

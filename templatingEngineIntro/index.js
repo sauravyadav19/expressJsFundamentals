@@ -24,9 +24,11 @@ app.set('views',path.join(__dirname, '/views'));
 
 // route handler for the path 'domain/homePage'
 app.get('/homePage',(request,response)=>{
-    response.render('homepage.ejs');
+    response.render('homepage.ejs',{variableName:'value of the Variable'});
     //we are now using response.render rather than response.send() as the file we are sending need to be render first 
     // then only will be sent the client,so rendering is happening at server side rather than client side.
+    // the second argument of the respone.render() is variables that we want to pass to the .ejs file, with first value
+    // being the name of variable and the second value being the value of that variable.
     // the Path need not to mention /view/NameOfTheFile since express assuems that it will be in views, we can simply
     // just write the name of the file, also we do not have to add the .ejs extension because the rending engine already
     // been set to 'ejs' so express knows that it is a .ejs file but its a good practice and gives more clarity if we add the extension.

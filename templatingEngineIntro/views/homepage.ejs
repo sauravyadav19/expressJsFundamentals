@@ -6,6 +6,24 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Tags in EJS and their use cases and Examples</h1>
+    <h2>1.Tags and their use cases</h2>
+    <p>There are various tags that can be use to specifiy whether your content is just text our something
+    that needs to evaluated by the Templating Engine before rendering</p>
+    <ol>
+        <li> <b>&lt;%=</b> <i>Javascript goes in here</i> <b>%&gt;</b> anything in between these tags would be considered as Javascript so it will be evaluated and then embeded in this file</li>
+        <li><b>&lt;%</b><i>Javascipt goes in here (but results are not embedded back in html)</i> <b>%&gt;</b> this tag is used when we want to use javascript but we do not want the result to be embedded in our file (such as conditional statements)</li>
+    </ol>
+    <h2>2.Examples</h2>
+    <h4>2.1 &lt;%= %&gt;</h4>
+    <ol>
+        <li><i>&lt;%=</i> <b>5 + 10</b> <i>%&gt;</i> <b>=======></b> <b><%=5+10 %></b> </li>
+        <li><i>&lt;%=</i> <b> variableName</b> <i>%&gt;</i> <b>=======></b>  <b><%= variableName%></b> </li>
+    </ol>
+    <h4>2.2 &lt;% %&gt;</h4>
+    <ol>
+        <li><i>&lt;%=</i> <b>if(num%2 ===0)</b> <i>%&gt;</i> <b>=======></b> <b>NO OUTPUT</b><i>(Even though line is javascipt but it need not to give us any output,we use these tag for conditional flow in our program)</i></li>
+        <li><i>&lt;%=</i> <b> for(let element of array)</b> <i>%&gt;</i> <b>=======></b>  <b>NO OUTPUT</b> <i>(but controls the flow or redering of other code)</i> </li>
+    </ol>
 </body>
 </html>

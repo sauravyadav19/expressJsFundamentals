@@ -48,6 +48,15 @@ app.use(express.static(path.join(__dirname,'public')))
 app.get('/', (request,response)=>{
     response.render("home.ejs");
 })
+app.get('/search',(request,response)=>{
+    const searchFor = request.query.searchFor;
+     if(redditData[searchFor]){
+        const data = redditData[searchFor];
+        response.render('page.ejs',{page:searchFor, ...data});
+    }else{
+        response.render('404.ejs',{page:searchFor})
+    }
+})
 app.get('/:subreddit',(request,response)=>{
     const subreddit = request.params.subreddit;
     // if there exist the data of the required subreddit in data.json we render our page.ejs 
@@ -61,6 +70,7 @@ app.get('/:subreddit',(request,response)=>{
         response.render('404.ejs',{page:subreddit})
     }
 })
+
 
 // listening on the specified port
 app.listen(port,()=>{

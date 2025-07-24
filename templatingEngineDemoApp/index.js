@@ -1,6 +1,7 @@
 // importing our requried modules (express and path[for working with directory configuration])
 const express = require('express');
 const path = require('path');
+const redditData = require('./data.json');
 // creating an instance of our express app
 const app = express();
 //setting up the port
@@ -46,6 +47,14 @@ app.use(express.static(path.join(__dirname,'public')))
 // creating a route handler for path domainName/
 app.get('/', (request,response)=>{
     response.render("home.ejs");
+})
+app.get('/:subreddit',(request,response)=>{
+    const subreddit = request.params.subreddit;
+    if(redditData[subreddit]){
+        response.render('page.ejs',{page:subreddit});
+    }else{
+        response.render('404.ejs')
+    }
 })
 
 // listening on the specified port

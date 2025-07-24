@@ -50,10 +50,15 @@ app.get('/', (request,response)=>{
 })
 app.get('/:subreddit',(request,response)=>{
     const subreddit = request.params.subreddit;
+    // if there exist the data of the required subreddit in data.json we render our page.ejs 
+    // wherein we are passing spreadding the variable 'data', which comes from our data.json file
+    // so we can access it directly rather than doing data.title or data.post everytime
+    // and if we do not have the clients requested subreddit page we simply are rendering the error 404 page
     if(redditData[subreddit]){
-        response.render('page.ejs',{page:subreddit});
+        const data = redditData[subreddit];
+        response.render('page.ejs',{page:subreddit, ...data});
     }else{
-        response.render('404.ejs')
+        response.render('404.ejs',{page:subreddit})
     }
 })
 

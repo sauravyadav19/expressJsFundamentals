@@ -6,7 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>You are Browsing <%=page%> subreddit</h1>
-    
+    <h1><%=page.toUpperCase()%> SUBREDDIT</h1>
+    <h2><%=description%></h2>
+    <!-- Rendering each Post from data.json -->
+    <% for(let SinglePost of post){ %>
+    <div>
+        <b><%= SinglePost.title; %></b> - <i><%=SinglePost.author %></i><br>
+        <% if(SinglePost.img){ %>
+            <img src = <%=SinglePost.img %> width="900" height="900">
+        <% } %>
+        <% } %>
+    </div>
+
 </body>
 </html>

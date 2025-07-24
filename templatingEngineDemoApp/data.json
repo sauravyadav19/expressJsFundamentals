@@ -1,0 +1,72 @@
+{
+    "dogs":{
+        "name":"dogs",
+        "subscribers":"8000",
+        "description":"This is a reddit form to discuss,share photos of Dog",
+        "post":[
+            {
+                "title":"Just met this cutie!",
+                "author":"Saurav",
+                "img": "https://images.theconversation.com/files/625053/original/file-20241010-17-f9sknr.jpg?ixlib=rb-4.1.0&q=30&auto=format&w=600&h=400&fit=crop&dpr=2"
+            },
+             {
+                "title":"Soon going to be a vet- Thank you Rhageli (my dog)",
+                "author":"Ram",
+                "img":"https://upload.wikimedia.org/wikipedia/commons/c/c8/Black_Labrador_Retriever_-_Male_IMG_3323.jpg"
+            },
+            {
+                "title":"Welcome to th family",
+                "author":"Shweta",
+                "img": "https://images.theconversation.com/files/625056/original/file-20241010-19-5h51ab.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=1000&fit=clip"
+            }
+
+        ]
+    },
+    "cats":{
+        "name":"cats",
+        "subscribers":"7999",
+        "description":"Cats will overtake the world",
+        "post":[
+            {
+                "title":"Sleepy Head!",
+                "author":"Shyam",
+                "img": "https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg"
+            },
+             {
+                "title":"Now I know why ezyptians called the cats GOD!",
+                "author":"John",
+                "img":"https://upload.wikimedia.org/wikipedia/commons/9/9b/Gustav_chocolate.jpg"
+            }
+
+        ]
+
+    },
+    "Football":{
+        "name":"football",
+        "subscribers":"8300",
+        "description":"Football for life",
+        "post":[
+            {
+                "title":"super excited for the upcoming Football league",
+                "author":"Edward"
+                
+            },
+             {
+                "title":"Messei vs Ronalado",
+                "author":"Tony",
+                "img": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Lionel_Messi_Player_of_the_Year_2011.jpg"
+            },
+            {
+                "title":"Preparation for the European League is well underway",
+                "author":"William",
+                "img":"https://upload.wikimedia.org/wikipedia/en/2/23/European_Football_League_logo.png"
+            },
+            {
+                "title":"Dates and Match to be annouced soon by the football authories",
+                "author":"BBC World"
+            }
+
+        ]
+
+    }
+}

@@ -10,7 +10,7 @@
     <h1>Blogs</h1>
     <ul>
     <% for(let blog of data){ %>
-        <li><b><%=blog.title%></b> - <%= blog.author %> </li> 
+        <li><b><%=blog.title%></b> - <%= blog.author %> <a href = '/blog/<%= blog.id %>'>Show</a>  </li> 
         <% }%> 
     </ul>
 </body>

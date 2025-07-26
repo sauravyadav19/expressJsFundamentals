@@ -40,7 +40,16 @@ app.post('/blog', (request,response)=>{
     // utilze an already existing route handler.
     response.redirect('/');
 })
+app.get('/blog/:id',(request,response)=>{
+    const id = request.params.id;
+    for(let blog of blogs){
+        if(blog.id === id){
+            response.render('expandedPage.ejs',{data:blog});
+        }
+    }
+    
 
+})
 app.listen(port,()=>{
     console.log("LISTENING ON PORT 8545...");
 })

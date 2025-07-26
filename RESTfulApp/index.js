@@ -4,6 +4,7 @@
 // path => for using an absolute path for configuration rather than relative.
 const express = require('express');
 const path = require('path');
+let { blogs } = require('./data');
 //-----------------------------------------------------------------------------------------------------
 //Creating an Instance our Express app:
 const app = express();
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname,'public')));
 //-----------------------------------------------------------------------------------------------------
 //Route Handlers
 app.get('/',(request,response)=>{
-    response.render('index.ejs')
+    response.render('index.ejs',{data:blogs});
 })
 
 app.listen(port,()=>{

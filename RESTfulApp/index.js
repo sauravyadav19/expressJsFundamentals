@@ -31,6 +31,15 @@ app.get('/',(request,response)=>{
 app.get('/blog/new',(request,respone)=>{
     respone.render('createBlog.ejs');
 })
+app.post('/blog', (request,response)=>{
+    const {title, author,article} = request.body;
+    let newArticle  = {"title":title, "author":author, "content":article};
+    blogs.push(newArticle);
+    // as the name suggest it is basically redirects to the page which is given in the argument.
+    // this is useful when say we do not necessaryly have a page to respond but rather we want to 
+    // utilze an already existing route handler.
+    response.redirect('/');
+})
 
 app.listen(port,()=>{
     console.log("LISTENING ON PORT 8545...");

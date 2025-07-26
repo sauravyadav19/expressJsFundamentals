@@ -1,5 +1,7 @@
+const { v4: uuid } = require('uuid'); // to generate a unique id for each blog
 let blogs = [
     {
+        id : uuid(),
         title: "Why Infinity Isn’t a Number",
         author: "Ada Lovelace",
         content: `Infinity isn't a number you can reach—it's a concept that expresses the idea of something without any bound. 
@@ -12,6 +14,7 @@ or subtracting infinity leads to undefined outcomes.`
     },
 
     {
+        id : uuid(),
         title: "The Elegance of Euler’s Identity",
         author: "Leonhard Euler",
         content: `Euler’s Identity: e^(iπ) + 1 = 0, is often considered the most beautiful equation in mathematics. 
@@ -23,6 +26,7 @@ It’s the kind of math that feels more like poetry.`
     },
 
     {
+        id : uuid(),
         title: "Time Dilation: A Window into Relativity",
         author: "Albert Einstein",
         content: `Time dilation is one of the most counterintuitive yet fascinating consequences of Einstein’s 
@@ -35,6 +39,7 @@ reality: time is not absolute.`
     },
 
     {
+        id : uuid(),
         title: "Why CPUs Can't Keep Getting Faster",
         author: "Grace Hopper",
         content: `In the early 2000s, CPUs got faster every year. But now, we're hitting physical limits. 
@@ -47,6 +52,7 @@ alone can’t carry us forward anymore.`
     },
 
     {
+        id : uuid(),
         title: "Blockchain: Trust Without Middlemen",
         author: "Satoshi Nakamoto",
         content: `Blockchain is more than cryptocurrency—it's a new way to build trust without centralized 
@@ -59,6 +65,7 @@ for building trust in a digital world.`
     },
 
     {
+        id : uuid(),
         title: "Fourier Transforms: Seeing Signals Differently",
         author: "Joseph Fourier",
         content: `The Fourier Transform takes a time-based signal—like sound or a digital image—and decomposes 
@@ -70,6 +77,7 @@ even quantum mechanics. It’s one of the most powerful tools for understanding 
     },
 
     {
+        id : uuid(),
         title: "The Butterfly Effect in Chaos Theory",
         author: "Edward Lorenz",
         content: `In chaotic systems, tiny changes in starting conditions can lead to vastly different outcomes. 
@@ -81,6 +89,7 @@ predicting the future in such systems isn’t about precision—it’s about und
     },
 
     {
+        id : uuid(),
         title: "P vs NP: The Greatest Open Problem in CS",
         author: "Stephen Cook",
         content: `In computer science, P vs NP asks: If a solution to a problem can be verified quickly, 
@@ -92,4 +101,4 @@ depend on problems staying hard—like encryption. Solving this question could c
     }
 ];
 
-module.exports = { blogs };
+module.exports = { blogs,uuid };

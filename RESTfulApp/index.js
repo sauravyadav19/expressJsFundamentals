@@ -18,11 +18,18 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname,'/views'));
 //Serving files (stored in root-Directory/public directory)
 app.use(express.static(path.join(__dirname,'public')));
+// When we send data using form and that data is not in url (as in a post request ) rather in body
+// we need to tell express so it can decoded it 
+// this is also true for JSON file sent for that we need to use  'app.use(express.json())'
+app.use(express.urlencoded())
 //-----------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------
 //Route Handlers
 app.get('/',(request,response)=>{
     response.render('index.ejs',{data:blogs});
+})
+app.get('/blog/new',(request,respone)=>{
+    respone.render('createBlog.ejs');
 })
 
 app.listen(port,()=>{

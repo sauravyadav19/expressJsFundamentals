@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href= "app.css">
+</head>
+<body>
+    <h1>Blogs</h1>
+    <ul>
+    <% for(let blog of data){ %>
+        <li><b><%=blog.title%></b> - <%= blog.author %>  <a href = '/blog/<%= blog.id %>'>Show</a>  <a href='/blog/<%= blog.id %> /edit/'>Edit</a> <form action='/blog/<%= blog.id %> ?_method=DELETE' method = "POST" style="display:inline;"><input type = "submit" value="delete" ></form> </li>
+        <% }%> 
+    </ul>
+    <a href = '/blog/new'>Create a New blog</a>
+</body>
+</html>

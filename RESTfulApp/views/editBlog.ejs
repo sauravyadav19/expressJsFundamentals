@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Blog</title>
+</head>
+<body>
+    <h1>Write a new Article</h1>
+    <section>
+        <form action = '/blog/<%=data.id%>?_method=PATCH' method="POST" >
+            <label for = "title" >Title</label>
+            <input type = "text" id="title" name="title" value= "<%=data.title %>" >
+            
+            <label for = "author">Author</label>
+            <input type = "text" id = "author" name = "author" value=" <%=data.author %>">
+
+            <label for = "article">Content </label>
+            <textarea  id = "article" name = "article" placeholder = "Write here....." rows=20 cols=60> <%=data.content %></textarea>
+            <input type = "submit">
+        </form>
+    </section>
+</body>
+</html>
+
+
+

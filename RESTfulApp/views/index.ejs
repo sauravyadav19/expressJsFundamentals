@@ -10,7 +10,7 @@
     <h1>Blogs</h1>
     <ul>
     <% for(let blog of data){ %>
-        <li><b><%=blog.title%></b> - <%= blog.author %>  <a href = '/blog/<%= blog.id %>'>Show</a>  <a href='/blog/<%= blog.id %> /edit/'>Edit</a> </li>
+        <li><b><%=blog.title%></b> - <%= blog.author %>  <a href = '/blog/<%= blog.id %>'>Show</a>  <a href='/blog/<%= blog.id %> /edit/'>Edit</a> <form action='/blog/<%= blog.id %> ?_method=DELETE' method = "POST" style="display:inline;"><input type = "submit" value="delete" ></form> </li>
         <% }%> 
     </ul>
 </body>

@@ -82,6 +82,18 @@ app.patch('/blog/:id',(request,response)=>{
         }
     }
 })
+app.delete('/blog/:id',(request,response)=>{
+    console.log("You are inside the DELETE REQUESt");
+    const id = (request.params.id).trim();
+    let newBlog = [];
+    for(let blog of blogs){
+        if(blog.id !== id){
+            newBlog.push(blog)
+        }
+    }
+    blogs = newBlog;
+    response.redirect('/');
+})
 app.listen(port,()=>{
     console.log("LISTENING ON PORT 8545...");
 })

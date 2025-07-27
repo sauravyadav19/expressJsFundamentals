@@ -83,7 +83,6 @@ app.patch('/blog/:id',(request,response)=>{
     }
 })
 app.delete('/blog/:id',(request,response)=>{
-    console.log("You are inside the DELETE REQUESt");
     const id = (request.params.id).trim();
     let newBlog = [];
     for(let blog of blogs){

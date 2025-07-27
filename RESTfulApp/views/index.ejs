@@ -13,5 +13,6 @@
         <li><b><%=blog.title%></b> - <%= blog.author %>  <a href = '/blog/<%= blog.id %>'>Show</a>  <a href='/blog/<%= blog.id %> /edit/'>Edit</a> <form action='/blog/<%= blog.id %> ?_method=DELETE' method = "POST" style="display:inline;"><input type = "submit" value="delete" ></form> </li>
         <% }%> 
     </ul>
+    <a href = '/blog/new'>Create a New blog</a>
 </body>
 </html>

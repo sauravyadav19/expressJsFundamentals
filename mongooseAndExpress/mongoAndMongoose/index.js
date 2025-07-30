@@ -35,6 +35,19 @@ const mongoose = require('mongoose');
 // as a refresher .then block of code runs when the promise is successfully resolved 
 // but if the promise is rejected the .catch parts runs.
 
+// a small catch to this => we could have used await-async in our try -catch block and it would have worked fine
+// same as .then and .catch, infact it is used widely used in production level code, as it easier to read and debug.
+// Async and Await way of doing same thing would be this:
+    //(async () => {
+    //   try {
+    //     await mongoose.connect('mongodb://127.0.0.1:27017/myTodoApp');
+    //     console.log("CONNECTION WITH DATABASE HAS BEEN ESTABLISHED...");
+    //   } catch (error) {
+    //     console.log("CONNECTION WITH DATABASE FAILED");
+    //     console.log(error);
+    //   }
+    // })();
+
 mongoose.connect('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6')
 .then(()=>{
     console.log("CONNECTION WITH DATABASE HAS BEEN ESTABLISHED...")
@@ -44,6 +57,62 @@ mongoose.connect('mongodb://127.0.0.1:27017/?directConnection=true&serverSelecti
     console.log("CONNECTION WITH DATABASE FAILED");
     console.log(error);
 })
-//--------------------------------------------------------------------------------------------------------
 
+//about the mongo's generated URL
+// mongodb://127.0.0.1:27017/myTodoApp
+// \______/ \____________/ \________/
+//   |           |             |
+// Protocol     Server      Database Name
+//              Address
+
+
+//if we want to use different database, we just want to specify that database's name
+// in case no database is specified, mongo defaults to 'test' database
+// if your specified database does not exist, mongo creates one.
+//--------------------------------------------------------------------------------------------------------
+//SCHEMA and MODEL
+
+//WHAT IS A MOGOOSE SCHEMA?
+// it is a blueprint of what would be strcture of our data be like (in Relational database, we call it the table)
+//Analogy : Blueprint of a house, it not the actual house, but this is required to build the actual house.
+const movieSchema = mongoose.Schema({
+    title: String,
+    score: Number,
+    rating: String,
+    year: Number
+})
+// using the above defined mogoose schema Mongo will know what are "columns" and what kind of datatype value to expect in it
+
+
+//WHAT IS A MOGOOSE MODEl?
+//if Schmea is the blueprint, Model is the Factory that take that blueprint and creates the house for us using that blueprint
+// using mogoose model, we get an interface to the database to do all our operation(CRUD).
+
+// How to Create a Mongoose Model:
+
+// we use mongoose.model() which takes two required parameters:
+// 1. NAME OF THE MODEL, using this name, on the mongoDB side a collection would be created;conventionally 
+//    the first letter of the name should be capatalized; mongoose internally pluralizes this name (it just
+//    do not add an 's' at the end rather it handle it in an sophisticated manner (Person => people)) to name
+//    the collection that would be created by mongoDB.
+//    if we do not want to rely on mogoose for the naming of our mongoDB collection we can specify what name 
+//    we want to give to that collection as the third argument to mongoose.model().
+// 2. SCHEMA, the model take the schema using which the data would be store in the created collection.
+// So, in the below lines of code:
+// the first argument 'Movie' is the name of the model using which a collection of the name 'movies'
+// would be created and the schema it would be assocaiated with would be movieSchema
+const Movie = mongoose.model('Movie', movieSchema);
+// 3. NAME OF THE COLLECTION (OPTIONAL)
+// say we do not want to rely on mogoose for the naming of our collection that will be created by mongoDB
+// but rather we want to give a custom Name, that custom name is the third optional argument and code would look like this:
+// const Movie = mongoose.model('Movie', movieSchema, movieCollection)
+// so now instead of resorting to the default way of naming (pluralzing, using the first argument),mogoose
+// instructs mongoDB to create a collection with our custom name instead.
+
+//It might look like that with exection of mongoose.model() line, mongoDB will create a collection,but
+// that technially not accurate, mongoDB register that request for creation of the collection but
+// it does not create the actuall collection unitl either a value has been insterted or we have explictly
+// not asked it to do it by calling ModelName.createCollection();
+
+//--------------------------------------------------------------------------------------------------------
 

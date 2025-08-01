@@ -115,4 +115,67 @@ const Movie = mongoose.model('Movie', movieSchema);
 // not asked it to do it by calling ModelName.createCollection();
 
 //--------------------------------------------------------------------------------------------------------
+// DOING CRUD (create,read,update delete) operations using mour MODEL
 
+// 1. Creation (Add data to the database)
+// if we were to compare with SQL databases the row of the table there is caled document here,
+// meaning now we will be inserting dcoument to our schema using the mogoose model.
+
+// there are two Methods which we can do this:
+// Method 1: Creating an in-memory instance of the model and then saving it
+// Method 2: inserting using modelName.insertMany() 
+
+// Method 1:
+
+// Step 1:  Creating an instance of the Movie Model
+// const theMenu = new Movie ({
+//     title: 'The Menu',
+//     score: 7.9,
+//     rating: 'R',
+//     year: 2022
+// })
+
+// Step 2: Then saving that instance of our model to our mongoDB
+// theMenu.save();
+
+
+// Method 2:
+
+// const topRatedMovies = [
+//     {title: 'Interstellar', score:9.3, rating: 'PG-13', year:2012},
+//     {title: 'Get out', score:9.1, rating: 'R', year:2016},
+//     {title: 'Inception', score:8.9, rating: 'G', year:2018},
+// ]
+
+// Movie.insertMany(topRatedMovies);
+
+
+// these methods the way coded above are not the best practice
+// because every task that involes interaction with database is asynchronous
+// Both .save() and .insertMany() are asynchronous, so they return promises.
+// You CAN use them directly, but you should always handle them with either `.then().catch()`
+// or, preferably, with `await` inside an async function to ensure proper flow and error handling.
+// so the correct way would have been:
+
+async function insertSingleMovie() {
+    const theMenu = new Movie ({
+        title: 'The Menu',
+        score: 7.9,
+        rating: 'R',
+        year: 2022
+    })
+    
+    await theMenu.save()
+}
+insertSingleMovie();
+
+async function insertMoreThanOneMovie(){
+    const topRatedMovies = [
+        {title: 'Interstellar', score:9.3, rating: 'PG-13', year:2012},
+        {title: 'Get out', score:9.1, rating: 'R', year:2016},
+        {title: 'Inception', score:8.9, rating: 'G', year:2018},
+    ]
+
+   await  Movie.insertMany(topRatedMovies);
+}
+insertMoreThanOneMovie();

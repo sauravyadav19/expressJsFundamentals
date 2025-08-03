@@ -5,7 +5,7 @@
 // method-override => help to deal with request other than GET or POST from a form.
 const express = require('express');
 const path = require('path');
-let { blogs, uuid } = require('./data');
+const {Model} = require('./data.js')
 const methodOverride = require('method-override');
 //-----------------------------------------------------------------------------------------------------
 //Creating an Instance our Express app:
@@ -36,61 +36,47 @@ app.use(methodOverride('_method'));
 //-----------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------
 //Route Handlers
-app.get('/',(request,response)=>{
+app.get('/',async (request,response)=>{
+    const blogs = await Model.find();
     response.render('index.ejs',{data:blogs});
 })
 app.get('/blog/new',(request,respone)=>{
     respone.render('createBlog.ejs');
 })
-app.post('/blog', (request,response)=>{
+app.post('/blog', async (request,response)=>{
     const {title, author,article} = request.body;
-    let newArticle  = {"title":title, "author":author, "content":article, id:uuid()};
-    blogs.push(newArticle);
+    const newBlog = new Model({title: title,author:author,content:article})
+    await newBlog.save()
     // as the name suggest it is basically redirects to the page which is given in the argument.
     // this is useful when say we do not necessaryly have a page to respond but rather we want to 
     // utilze an already existing route handler.
     response.redirect('/');
 })
-app.get('/blog/:id',(request,response)=>{
-    const id = request.params.id;
-    for(let blog of blogs){
-        if(blog.id === id){
-            response.render('expandedPage.ejs',{data:blog});
-        }
-    }
-
+app.get('/blog/:id',async (request,response)=>{
+    const idBlog= request.params.id;
+    const blog = await Model.findOne({_id : idBlog})
+    response.render('expandedPage.ejs',{data:blog});
 })
-app.get('/blog/:id/edit',(request,response)=>{
+app.get('/blog/:id/edit',async (request,response)=>{
     const id = (request.params.id).trim();
-    for(let blog of blogs){
-        if(blog.id === id){
-            response.render('editBlog.ejs',{data:blog});
-            break;
-        }
-    }
+    const blog = await Model.findOne({_id:id});
+    response.render('editBlog.ejs',{data:blog});
 })
 
-app.patch('/blog/:id',(request,response)=>{
+app.patch('/blog/:id',async (request,response)=>{
     const id = (request.params.id).trim();
     const {title, author,article } = request.body;
-    for(let blog of blogs){
-        if(blog.id === id){
-            blog.title = title;
-            blog.author = author;
-            blog.content = article;
-            response.redirect('/');
-        }
-    }
+    const blog = await Model.findOne({_id: id});
+    blog.title = title;
+    blog.author = author;
+    blog.content = article;
+    await blog.save();
+    response.redirect('/');
+    
 })
-app.delete('/blog/:id',(request,response)=>{
+app.delete('/blog/:id',async (request,response)=>{
     const id = (request.params.id).trim();
-    let newBlog = [];
-    for(let blog of blogs){
-        if(blog.id !== id){
-            newBlog.push(blog)
-        }
-    }
-    blogs = newBlog;
+    await Model.findByIdAndDelete(id);
     response.redirect('/');
 })
 app.listen(port,()=>{

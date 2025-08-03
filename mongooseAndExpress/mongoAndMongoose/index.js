@@ -116,8 +116,8 @@ const Movie = mongoose.model('Movie', movieSchema);
 
 //--------------------------------------------------------------------------------------------------------
 // DOING CRUD (create,read,update delete) operations using mour MODEL
-
-// 1. Creation (Add data to the database)
+//--------------------------------------------------------------------------------------------------------
+// 1. CREATION (Add data to the database)
 // if we were to compare with SQL databases the row of the table there is caled document here,
 // meaning now we will be inserting dcoument to our schema using the mogoose model.
 
@@ -152,7 +152,8 @@ const Movie = mongoose.model('Movie', movieSchema);
 
 // these methods the way coded above are not the best practice
 // because every task that involes interaction with database is asynchronous
-// Both .save() and .insertMany() are asynchronous, so they return promises.
+// Both .save() and .insertMany() are asynchronous, so they 
+// return promises (techincally not full fledge promise but they do support .then and .catch, they are something called 'thenables').
 // You CAN use them directly, but you should always handle them with either `.then().catch()`
 // or, preferably, with `await` inside an async function to ensure proper flow and error handling.
 // so the correct way would have been:
@@ -179,3 +180,7 @@ async function insertMoreThanOneMovie(){
    await  Movie.insertMany(topRatedMovies);
 }
 insertMoreThanOneMovie();
+
+//--------------------------------------------------------------------------------------------------------
+//2. READ Operation
+// 

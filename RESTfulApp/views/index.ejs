@@ -4,15 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href= "app.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Blogs</h1>
-    <ul>
-    <% for(let blog of data){ %>
-        <li><b><%=blog.title%></b> - <%= blog.author %>  <a href = '/blog/<%= blog.id %>'>Show</a>  <a href='/blog/<%= blog.id %> /edit/'>Edit</a> <form action='/blog/<%= blog.id %> ?_method=DELETE' method = "POST" style="display:inline;"><input type = "submit" value="delete" ></form> </li>
-        <% }%> 
-    </ul>
-    <a href = '/blog/new'>Create a New blog</a>
+    <%- include('partials/navbar.ejs') %>
+    <div class = "container">
+        <div  class="d-flex justify-content-end mb-3">
+            <form action = '/', method = "GET">
+                <input type = "hidden"  name="order" value = <%=nextSortingOrder%> >
+                <input type = "submit"  class = 'btn btn-outline-secondary'value="<%= buttonValue%>">
+            </form>
+        </div>
+        <div class = "container">
+            <div class = "list-group">
+                <% for(let blog of data){ %>
+                    <a href='/blog/<%= blog.id %>' class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><%=blog.title%></h5>
+                            <small><%= blog.author%> </small>
+                        </div>
+                        <small style="color: maroon;"><%= blog.time.toDateString() %></small>
+                        <p class="mb-1"><%= blog.content.slice(0,80) %> <b>Read more..</b></p>
+                    </a>
+                <% }%> 
+            </div>
+        </div>
+    </div>
 </body>
 </html>

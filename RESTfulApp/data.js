@@ -8,9 +8,9 @@ on a line is infinite, yet each point can be uniquely identified.
 
 Understanding infinity is crucial in fields like analysis, where it helps describe behavior as quantities grow 
 larger and larger, or get arbitrarily close to zero. Just don't try to treat it like an ordinary number—adding 
-or subtracting infinity leads to undefined outcomes.`
+or subtracting infinity leads to undefined outcomes.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "The Elegance of Euler’s Identity",
         author: "Leonhard Euler",
@@ -19,9 +19,9 @@ Why? Because it links five of the most fundamental constants—e, i, π, 1, and 
 
 This identity bridges complex numbers, exponential growth, and trigonometry. It's not just a mathematical 
 curiosity—it plays a central role in quantum mechanics, signal processing, and electrical engineering. 
-It’s the kind of math that feels more like poetry.`
+It’s the kind of math that feels more like poetry.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "Time Dilation: A Window into Relativity",
         author: "Albert Einstein",
@@ -31,9 +31,9 @@ slows down for objects moving at speeds close to that of light.
 
 This isn’t just theory. It’s been confirmed using high-precision atomic clocks on GPS satellites, which 
 must account for this effect to remain accurate. At its core, time dilation reshapes our understanding of 
-reality: time is not absolute.`
+reality: time is not absolute.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "Why CPUs Can't Keep Getting Faster",
         author: "Grace Hopper",
@@ -43,9 +43,9 @@ instability.
 
 To solve this, the industry shifted to parallel computing—adding multiple cores and leveraging GPUs 
 and distributed systems. That’s why understanding concurrency and multithreading is essential today—hardware 
-alone can’t carry us forward anymore.`
+alone can’t carry us forward anymore.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "Blockchain: Trust Without Middlemen",
         author: "Satoshi Nakamoto",
@@ -55,9 +55,9 @@ distributed consensus to verify transactions.
 
 Each block contains a cryptographic hash of the previous one, making tampering almost impossible. 
 From supply chains to voting systems, blockchain’s transparency and immutability make it a powerful tool 
-for building trust in a digital world.`
+for building trust in a digital world.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "Fourier Transforms: Seeing Signals Differently",
         author: "Joseph Fourier",
@@ -66,9 +66,9 @@ it into its frequency components. This allows engineers and scientists to 'see' 
 a complex signal.
 
 Applications are everywhere: MP3 compression, JPEG image processing, solving differential equations, and 
-even quantum mechanics. It’s one of the most powerful tools for understanding waveforms and systems.`
+even quantum mechanics. It’s one of the most powerful tools for understanding waveforms and systems.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "The Butterfly Effect in Chaos Theory",
         author: "Edward Lorenz",
@@ -77,9 +77,9 @@ This is known as the Butterfly Effect—where a butterfly flapping its wings cou
 weeks later.
 
 This concept has deep implications in weather forecasting, biology, economics, and beyond. It reminds us that 
-predicting the future in such systems isn’t about precision—it’s about understanding patterns in unpredictability.`
+predicting the future in such systems isn’t about precision—it’s about understanding patterns in unpredictability.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     },
-
     {
         title: "P vs NP: The Greatest Open Problem in CS",
         author: "Stephen Cook",
@@ -88,7 +88,8 @@ can it also be found quickly?
 
 This problem impacts cryptography, optimization, AI, and more. If P = NP, then every problem we can verify 
 quickly (like solving a Sudoku puzzle) can also be solved just as fast. If not, many things we do today 
-depend on problems staying hard—like encryption. Solving this question could change everything.`
+depend on problems staying hard—like encryption. Solving this question could change everything.`,
+        time: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
     }
 ];
 
@@ -116,7 +117,8 @@ connectToDB();
 const schema = mongoose.Schema({
     title: String,
     author: String,
-    content: String
+    content: String,
+    time: Date
 })
 
 //Creating a Model

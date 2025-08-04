@@ -37,15 +37,20 @@ app.use(methodOverride('_method'));
 //-----------------------------------------------------------------------------------------------------
 //Route Handlers
 app.get('/',async (request,response)=>{
-    const blogs = await Model.find();
-    response.render('index.ejs',{data:blogs});
+    const requestedSortingOrder = request.query.order === 'asc' ? 'asc' : 'dsc';
+    const sortBy = requestedSortingOrder === 'asc' ? 1: -1;
+    const blogs = await Model.find().sort({time:sortBy});
+    const nextSortingOrder = requestedSortingOrder === 'asc' ? 'dsc' : 'asc'
+     const buttonValue = requestedSortingOrder === 'asc' ? 'Newest to Oldest' :'Oldest to Newest'
+    response.render('index.ejs',{data:blogs,nextSortingOrder:nextSortingOrder, buttonValue: buttonValue});
 })
+
 app.get('/blog/new',(request,respone)=>{
     respone.render('createBlog.ejs');
 })
 app.post('/blog', async (request,response)=>{
     const {title, author,article} = request.body;
-    const newBlog = new Model({title: title,author:author,content:article})
+    const newBlog = new Model({title: title,author:author,content:article,time:Date.now()})
     await newBlog.save()
     // as the name suggest it is basically redirects to the page which is given in the argument.
     // this is useful when say we do not necessaryly have a page to respond but rather we want to 
@@ -66,11 +71,7 @@ app.get('/blog/:id/edit',async (request,response)=>{
 app.patch('/blog/:id',async (request,response)=>{
     const id = (request.params.id).trim();
     const {title, author,article } = request.body;
-    const blog = await Model.findOne({_id: id});
-    blog.title = title;
-    blog.author = author;
-    blog.content = article;
-    await blog.save();
+    const blog = await Model.findByIdAndUpdate(id,{$set:{title:title,author:author,content:article,time:Date.now()}});
     response.redirect('/');
     
 })

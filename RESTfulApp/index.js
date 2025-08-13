@@ -9,8 +9,6 @@ const {Model} = require('./data.js')
 const methodOverride = require('method-override');
 const {AppError} = require('./utilities/AppError.js');
 const wrapAsync = require('./utilities/wrapAsync.js');
-const { nextTick } = require('process');
-const { error } = require('console');
 //-----------------------------------------------------------------------------------------------------
 //Creating an Instance our Express app:
 const app = express();

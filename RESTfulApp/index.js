@@ -5,8 +5,12 @@
 // method-override => help to deal with request other than GET or POST from a form.
 const express = require('express');
 const path = require('path');
-let { blogs, uuid } = require('./data');
+const {Model} = require('./data.js')
 const methodOverride = require('method-override');
+const {AppError} = require('./utilities/AppError.js');
+const wrapAsync = require('./utilities/wrapAsync.js');
+const { nextTick } = require('process');
+const { error } = require('console');
 //-----------------------------------------------------------------------------------------------------
 //Creating an Instance our Express app:
 const app = express();
@@ -36,62 +40,60 @@ app.use(methodOverride('_method'));
 //-----------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------
 //Route Handlers
-app.get('/',(request,response)=>{
-    response.render('index.ejs',{data:blogs});
-})
+app.get('/', wrapAsync(async (request,response)=>{
+    const requestedSortingOrder = request.query.order === 'asc' ? 'asc' : 'dsc';
+    const sortBy = requestedSortingOrder === 'asc' ? 1: -1;
+    const blogs = await Model.find().sort({time:sortBy});
+    const nextSortingOrder = requestedSortingOrder === 'asc' ? 'dsc' : 'asc'
+     const buttonValue = requestedSortingOrder === 'asc' ? 'Newest to Oldest' :'Oldest to Newest'
+    response.render('index.ejs',{data:blogs,nextSortingOrder:nextSortingOrder, buttonValue: buttonValue});
+}))
+
 app.get('/blog/new',(request,respone)=>{
     respone.render('createBlog.ejs');
 })
-app.post('/blog', (request,response)=>{
+app.post('/blog', wrapAsync(async (request,response)=>{
     const {title, author,article} = request.body;
-    let newArticle  = {"title":title, "author":author, "content":article, id:uuid()};
-    blogs.push(newArticle);
+    const newBlog = new Model({title: title,author:author,content:article,time:Date.now()})
+    await newBlog.save()
     // as the name suggest it is basically redirects to the page which is given in the argument.
     // this is useful when say we do not necessaryly have a page to respond but rather we want to 
     // utilze an already existing route handler.
     response.redirect('/');
-})
-app.get('/blog/:id',(request,response)=>{
-    const id = request.params.id;
-    for(let blog of blogs){
-        if(blog.id === id){
-            response.render('expandedPage.ejs',{data:blog});
-        }
-    }
-
-})
-app.get('/blog/:id/edit',(request,response)=>{
+}))
+app.get('/blog/:id', wrapAsync(async(request,response,next)=>{
+    const idBlog= request.params.id;
+    const blog = await Model.findOne({_id : idBlog})
+    response.render('expandedPage.ejs',{data:blog});
+}))
+app.get('/blog/:id/edit',wrapAsync(async (request,response)=>{
     const id = (request.params.id).trim();
-    for(let blog of blogs){
-        if(blog.id === id){
-            response.render('editBlog.ejs',{data:blog});
-            break;
-        }
-    }
-})
+    const blog = await Model.findOne({_id:id});
+    response.render('editBlog.ejs',{data:blog});
+}))
 
-app.patch('/blog/:id',(request,response)=>{
+app.patch('/blog/:id', wrapAsync(async (request,response)=>{
     const id = (request.params.id).trim();
     const {title, author,article } = request.body;
-    for(let blog of blogs){
-        if(blog.id === id){
-            blog.title = title;
-            blog.author = author;
-            blog.content = article;
-            response.redirect('/');
-        }
-    }
-})
-app.delete('/blog/:id',(request,response)=>{
-    const id = (request.params.id).trim();
-    let newBlog = [];
-    for(let blog of blogs){
-        if(blog.id !== id){
-            newBlog.push(blog)
-        }
-    }
-    blogs = newBlog;
+    const blog = await Model.findByIdAndUpdate(id,{$set:{title:title,author:author,content:article,time:Date.now()}});
     response.redirect('/');
+    
+}))
+app.delete('/blog/:id',wrapAsync(async (request,response)=>{
+    const id = (request.params.id).trim();
+    await Model.findByIdAndDelete(id);
+    response.redirect('/');
+}))
+
+app.all(/(.*)/,(req,res,next)=>{
+    error.message = `Page ${req.path} not found `
+    error.status = 404;
+    next(error);
+})
+app.use((error,request,response,next)=>{
+    response.render('error.ejs',{error:error})
+    next();
+    
 })
 app.listen(port,()=>{
     console.log("LISTENING ON PORT 8545...");

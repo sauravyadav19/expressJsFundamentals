@@ -4,22 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Write a new Article</h1>
-    <section>
-        <form action="/blog", method="POST">
-            <label for = "title" >Title</label>
-            <input type = "text" id="title" name="title">
+    <%- include('partials/navbar.ejs') %>
+    <div class="container">
+    <p class="h1">Write a new Article</p>
+        <form action="/blog", method="POST" class ="needs-validation" novalidate>
+            <div class ="mb-3">
+                <label for = "title" class="form-label" >Title</label>
+                <input type = "text" id="title" name="title" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please provide a title.
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                 </div>
+            </div>
+            <div class ="mb-3">
+                <label for = "author" class="form-label">Author</label>
+                <input type = "text" id = "author" name = "author" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please provide the Author's Name.
+                </div>
+                 <div class="valid-feedback">
+                    Looks good!
+                 </div>
+            </div>
+            <div  class ="mb-3">
+                <label for = "article" class="form-label">Content </label>
+                <textarea  id = "article" name = "article" placeholder = "Write here....." class="form-control"  rows="10" required></textarea>
+                <div class="invalid-feedback">
+                    This is a required Field
+                </div>
+                 <div class="valid-feedback">
+                    Looks good!
+                 </div>
+            </div>
+            <div class = "d-flex justify-content-betweend-flex justify-content-between">
+                <input type = "submit" class="btn btn-success">
+                <a href = "/" class="btn btn-secondary">Discard</a>
+            </div>
             
-            <label for = "author">Author</label>
-            <input type = "text" id = "author" name = "author">
-
-            <label for = "article">Content </label>
-            <textarea  id = "article" name = "article" placeholder = "Write here....." rows=5 cols=50></textarea>
-            <input type = "submit">
         </form>
-    </section>
-    <a href= "/">Home</a>
+        
+    </div>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+    </script>
 </body>
 </html>
